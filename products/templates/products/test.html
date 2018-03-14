@@ -1,3 +1,4 @@
+{% load app_pages_tags %}
 <!DOCTYPE HTML>
 
 <html>
@@ -8,5 +9,6 @@
         <h1>test template</h1>
         <p>kwarg_based: {{ kwarg_based }}</p>
         <p>self_based: {{ self_based }}</p>
+        <p>url test: {% page_url 'testdetail' 1 %}</p>
     </body>
 </html>

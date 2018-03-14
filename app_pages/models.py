@@ -1,5 +1,7 @@
 # TODO: document dependencies, this will only work for django >= 2.0
 # TODO: see if we can override __new__ instead of __init__
+# TODO: document the fact that url include namespace won't work too well (app_name would need to be present)
+# fortunately, namespaces don't seem that critical a feature for apppages
 
 from django.urls import URLResolver
 from django.urls.exceptions import Resolver404
@@ -13,7 +15,7 @@ class AppPageMixin:
         raise NotImplementedError('url_config')
 
     def reverse(self, name, *args, **kwargs):
-        sub_url = self._apppage_url_resolver.reverse(name)
+        sub_url = self._apppage_url_resolver.reverse(name, *args, **kwargs)
         return self.url + sub_url.lstrip('/')
 
     def __init__(self, *args, **kwargs):
@@ -21,7 +23,6 @@ class AppPageMixin:
         self._apppage_url_resolver = URLResolver(RegexPattern(r'^{}'.format(self.url)), self.url_config)
 
     def route(self, request, path_components):
-        import ipdb; ipdb.set_trace() 
         # url config takes precedence over normal wagtail routing
         try:
             view, args, kwargs = self._apppage_url_resolver.resolve(request.path)
