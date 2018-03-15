@@ -1,0 +1,16 @@
+{% load app_pages_tags %}
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <title>article detail</title>
+    </head>
+    <body>
+        <h1>article detail</h1>
+        {{ object.title }} ({{ object.author }})
+        {{ object.body|linebreaks }}
+        <p>
+            <a href="{% app_page_url 'article_list' %}">back to overview</a>
+        </p>
+    </body>
+</html>

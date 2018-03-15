@@ -12,7 +12,7 @@
         <ul>
             {% for product in object_list %}
             <li>
-                <a href="{% page_url 'product-detail' product.pk %}">{{ product }}</a>
+                <a href="{% app_page_url 'product-detail' product.pk %}">{{ product }}</a>
             </li>
             {% endfor %}
         </ul>

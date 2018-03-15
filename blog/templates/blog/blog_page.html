@@ -1,0 +1,17 @@
+{% load app_pages_tags %}
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <title>{{ self.title }}</title>
+    </head>
+    <body>
+        <h1>{{ self.title }}</h1>
+
+        {{ self.intro|linebreaks }}
+        
+        <p>
+            <a href="{% app_page_url 'article_list' %}">go to articles</a>
+        </p>
+    </body>
+</html>
