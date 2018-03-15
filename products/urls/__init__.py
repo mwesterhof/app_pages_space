@@ -1,12 +1,13 @@
-from django.conf.urls import include, url
+from django.conf.urls import url
+from django.urls import include, path
 
-from ..views import testdetail, testlist
+from ..views import ProductList, ProductDetail
 
-from . import sub_urls
+from . import sub
 
 
 urlpatterns = [
-    url(r'^$', testlist, name='testlist'),
-    url(r'^(?P<pk>[0-9]+)/', testdetail, name='testdetail'),
-    url(r'sub/', include(sub_urls)),
+    url(r'^$', ProductList.as_view(), name='product-list'),
+    path('<int:pk>/', ProductDetail.as_view(), name='product-detail'),
+    path(r'sub/', include(sub)),
 ]

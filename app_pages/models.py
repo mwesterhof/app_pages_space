@@ -1,7 +1,5 @@
 # TODO: document dependencies, this will only work for django >= 2.0
-# TODO: see if we can override __new__ instead of __init__
-# TODO: document the fact that url include namespace won't work too well (app_name would need to be present)
-# fortunately, namespaces don't seem that critical a feature for apppages
+# TODO: document the fact that namespaced url includes don't work
 
 from django.urls import URLResolver
 from django.urls.exceptions import Resolver404
@@ -39,7 +37,7 @@ class AppPageMixin:
         if view is None:
             return super().serve(request, *args, **kwargs)
 
-        kwargs['parent_page'] = self
+        request.parent_page = self
         # if this is a class-based view, we'll make the parent page available as an attribute as well
         if getattr(view, 'view_class', None):
             view.view_class.parent_page = self

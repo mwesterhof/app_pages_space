@@ -1,0 +1,22 @@
+{% load app_pages_tags %}
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <title>product list</title>
+    </head>
+    <body>
+        <h1>product list</h1>
+
+        {% if object_list %}
+        <ul>
+            {% for product in object_list %}
+            <li>
+                <a href="{% page_url 'product-detail' product.pk %}">{{ product }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        
+    </body>
+</html>

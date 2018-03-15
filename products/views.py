@@ -1,14 +1,21 @@
-from django.http import HttpResponse
-from django.views.generic import TemplateView
+from django.views.generic import DetailView, ListView
+
+from products.models import Product
 
 
-def testlist(request, **kwargs):
-    return HttpResponse('test list')
+class FilteredProductMixin:
+    model = Product
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super().get_queryset(*args, **kwargs)
+        if not self.parent_page.category:
+            return qs
+        return qs.filter(category=self.parent_page.category)
 
 
-def testdetail(request, **kwargs):
-    return HttpResponse('test detail')
+class ProductList(FilteredProductMixin, ListView):
+    pass
 
 
-class TestTemplate(TemplateView):
-    template_name = 'products/test.html'
+class ProductDetail(FilteredProductMixin, DetailView):
+    pass
